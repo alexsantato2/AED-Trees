@@ -5,7 +5,7 @@ using namespace std;
 #ifndef ABB_H
 #define ABB_H
 
-template <typename TreeEntry>
+template <typename TreeEntry, typename Compare = less<TreeEntry>>
 class ABB {
   public:
     ABB();
@@ -33,6 +33,7 @@ class ABB {
       TreePointer leftNode, rightNode;
     };
     TreePointer root;
+    Compare compare;
 
     void print(TreePointer &t, int s);
     void clear(TreePointer &t);

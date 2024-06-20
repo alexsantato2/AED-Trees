@@ -5,7 +5,7 @@ using namespace std;
 #ifndef AVL_H
 #define AVL_H
 
-template <typename TreeEntry>
+template <typename TreeEntry, typename Compare = less<TreeEntry>>
 class AVL {
   public:
     AVL();
@@ -34,6 +34,7 @@ class AVL {
       int bal;
     };
     TreePointer root;
+    Compare compare;
 
     void print(TreePointer &t, int s);
     void clear(TreePointer &t);

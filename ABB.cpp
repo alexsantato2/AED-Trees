@@ -6,16 +6,16 @@
 using namespace std;
 
 // Construtor
-template <typename TreeEntry>
-ABB<TreeEntry>::ABB() {
+template <typename TreeEntry, typename Compare>
+ABB<TreeEntry, Compare>::ABB() {
 // pre: Nenhuma
 // pos: A ABB eh criada vazia (sem elementos)
   root = NULL;
 }
 
 // Finalizador
-template <typename TreeEntry>
-ABB<TreeEntry>::~ABB() {
+template <typename TreeEntry, typename Compare>
+ABB<TreeEntry, Compare>::~ABB() {
 // pre: Nenhuma
 // pos: A ABB eh finalizada deixando de ocupar
 //      espaco em memoria e seus nos deletados
@@ -23,8 +23,8 @@ ABB<TreeEntry>::~ABB() {
 }
 
 // Status
-template <typename TreeEntry>
-bool ABB<TreeEntry>::empty() {
+template <typename TreeEntry, typename Compare>
+bool ABB<TreeEntry, Compare>::empty() {
 // pre: Nenhuma
 // pos: Retorna true se a arvore esta vazia;
 //      false caso contrario
@@ -32,8 +32,8 @@ bool ABB<TreeEntry>::empty() {
 }
 
 // Verificar se a arvore esta cheia
-template <typename TreeEntry>
-bool ABB<TreeEntry>::full() {
+template <typename TreeEntry, typename Compare>
+bool ABB<TreeEntry, Compare>::full() {
 // pre: nenhuma
 // pos: retorna true se a arvore binária esta cheia;
 //      false caso contrario
@@ -41,15 +41,15 @@ bool ABB<TreeEntry>::full() {
 }
 
 // Imprimir a arvore
-template <typename TreeEntry>
-void ABB<TreeEntry>::print() {
+template <typename TreeEntry, typename Compare>
+void ABB<TreeEntry, Compare>::print() {
 // pre: nenhuma
 // pos: imprime a arvore na ordem DRE
   print(root, 0);
 }
 
-template <typename TreeEntry>
-void ABB<TreeEntry>::print(TreePointer &t, int s) {
+template <typename TreeEntry, typename Compare>
+void ABB<TreeEntry, Compare>::print(TreePointer &t, int s) {
   // pre: nenhuma
   // pos: imprime a arvore na ordem DRE
   if(t != NULL) {
@@ -63,8 +63,8 @@ void ABB<TreeEntry>::print(TreePointer &t, int s) {
 }
 
 // Clear
-template <typename TreeEntry>
-void ABB<TreeEntry>::clear() {
+template <typename TreeEntry, typename Compare>
+void ABB<TreeEntry, Compare>::clear() {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao descartados
 //      e ela se torna uma arvore vazia
@@ -72,8 +72,8 @@ void ABB<TreeEntry>::clear() {
   root = NULL;
 }
 
-template <typename TreeEntry>
-void ABB<TreeEntry>::clear(TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+void ABB<TreeEntry, Compare>::clear(TreePointer &t) {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao descartados
 //      e ela se torna uma arvore vazia
@@ -86,16 +86,16 @@ void ABB<TreeEntry>::clear(TreePointer &t) {
 
 // Percursos
 // Pré-Ordem
-template <typename TreeEntry>
-void ABB<TreeEntry>::preOrder() {
+template <typename TreeEntry, typename Compare>
+void ABB<TreeEntry, Compare>::preOrder() {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso pre-ordem (RED)
   preOrder(root);
 }
 
-template <typename TreeEntry>
-void ABB<TreeEntry>::preOrder(TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+void ABB<TreeEntry, Compare>::preOrder(TreePointer &t) {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso pre-ordem (RED)
@@ -107,16 +107,16 @@ void ABB<TreeEntry>::preOrder(TreePointer &t) {
 }
 
 // Em-Ordem
-template <typename TreeEntry>
-void ABB<TreeEntry>::inOrder() {
+template <typename TreeEntry, typename Compare>
+void ABB<TreeEntry, Compare>::inOrder() {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso em-ordem (ERD)
   inOrder(root);
 }
 
-template <typename TreeEntry>
-void ABB<TreeEntry>::inOrder(TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+void ABB<TreeEntry, Compare>::inOrder(TreePointer &t) {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso em-ordem (ERD)
@@ -128,16 +128,16 @@ void ABB<TreeEntry>::inOrder(TreePointer &t) {
 }
 
 // Pós-Ordem
-template <typename TreeEntry>
-void ABB<TreeEntry>::postOrder() {
+template <typename TreeEntry, typename Compare>
+void ABB<TreeEntry, Compare>::postOrder() {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso pós-ordem (EDR)
   postOrder(root);
 }
 
-template <typename TreeEntry>
-void ABB<TreeEntry>::postOrder(TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+void ABB<TreeEntry, Compare>::postOrder(TreePointer &t) {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso pós-ordem (EDR)
@@ -149,15 +149,15 @@ void ABB<TreeEntry>::postOrder(TreePointer &t) {
 }
 
 // Número de Nós
-template <typename TreeEntry>
-int ABB<TreeEntry>::nodes() {
+template <typename TreeEntry, typename Compare>
+int ABB<TreeEntry, Compare>::nodes() {
 // pre: Nenhuma
 // pos: Retorna o numero de nos na arvore
   return nodes(root);
 }
 
-template <typename TreeEntry>
-int ABB<TreeEntry>::nodes(TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+int ABB<TreeEntry, Compare>::nodes(TreePointer &t) {
 // pre: Nenhuma
 // pos: Retorna o numero de nos na arvore
   if(t == NULL)
@@ -167,15 +167,15 @@ int ABB<TreeEntry>::nodes(TreePointer &t) {
 }
 
 // Numero de folhas
-template <typename TreeEntry>
-int ABB<TreeEntry>::leaves() {
+template <typename TreeEntry, typename Compare>
+int ABB<TreeEntry, Compare>::leaves() {
 // pre: Nenhuma
 // pos: Retorna o numero de folhas na arvore
   return leaves(root);
 }
 
-template <typename TreeEntry>
-int ABB<TreeEntry>::leaves(TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+int ABB<TreeEntry, Compare>::leaves(TreePointer &t) {
 // pre: Nenhuma
 // pos: Retorna o numero de folhas na arvore
   if(t == NULL)
@@ -188,15 +188,15 @@ int ABB<TreeEntry>::leaves(TreePointer &t) {
 }
 
 // Altura
-template <typename TreeEntry>
-int ABB<TreeEntry>::height() {
+template <typename TreeEntry, typename Compare>
+int ABB<TreeEntry, Compare>::height() {
 // pre: Nenhuma
 // pos: Retorna a altura da arvore
   return height(root);
 }
 
-template <typename TreeEntry>
-int ABB<TreeEntry>::height(TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+int ABB<TreeEntry, Compare>::height(TreePointer &t) {
 // pre: Nenhuma
 // pos: Retorna a altura da arvore
   if(t == NULL)
@@ -209,8 +209,8 @@ int ABB<TreeEntry>::height(TreePointer &t) {
 }
 
 // Inserção
-template <typename TreeEntry>
-void ABB<TreeEntry>::insert(TreeEntry x) {
+template <typename TreeEntry, typename Compare>
+void ABB<TreeEntry, Compare>::insert(TreeEntry x) {
 // pre: Nenhuma
 // pos: O elemento x eh inserido na arvore
   TreePointer p = NULL, q = root, r;
@@ -218,7 +218,7 @@ void ABB<TreeEntry>::insert(TreeEntry x) {
   while(q != NULL) {
     p = q;
 
-    if(x < q->entry)
+    if(compare(x, q->entry))
       q = q->leftNode;
     else
       q = q->rightNode;
@@ -237,33 +237,33 @@ void ABB<TreeEntry>::insert(TreeEntry x) {
   if(p == NULL)
     root = r;
   else
-    if(x < p->entry)
+    if(compare(x, p->entry))
       p->leftNode = r;
     else
       p->rightNode = r;
 }
 
 // Remoção
-template <typename TreeEntry>
-bool ABB<TreeEntry>::remove(TreeEntry x) {
+template <typename TreeEntry, typename Compare>
+bool ABB<TreeEntry, Compare>::remove(TreeEntry x) {
 // pre: Nenhuma
 // pos: Retorna true se o elemento x foi encontrado
 //      e removido da arvore; false, caso contrario
   return remove(x, root);
 }
 
-template <typename TreeEntry>
-bool ABB<TreeEntry>::remove(TreeEntry x, TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+bool ABB<TreeEntry, Compare>::remove(TreeEntry x, TreePointer &t) {
 // pre: Nenhuma
 // pos: Retorna true se o elemento x foi encontrado
 //      e removido da arvore; false, caso contrario
   if(t == NULL)
     return false; // elemento inexistente
 
-  if(x < t->entry)
+  if(compare(x, t->entry))
     return remove(x, t->leftNode);
 
-  if(x > t->entry)
+  if(compare(t->entry, x))
     return remove(x, t->rightNode);
   else {
     TreePointer q;
@@ -282,8 +282,8 @@ bool ABB<TreeEntry>::remove(TreeEntry x, TreePointer &t) {
   }
 }
 
-template <typename TreeEntry>
-void ABB<TreeEntry>::removeMin(TreePointer &q, TreePointer &r) {
+template <typename TreeEntry, typename Compare>
+void ABB<TreeEntry, Compare>::removeMin(TreePointer &q, TreePointer &r) {
   if(r->leftNode != NULL)
     removeMin(q, r->leftNode);
   else {
@@ -294,15 +294,15 @@ void ABB<TreeEntry>::removeMin(TreePointer &q, TreePointer &r) {
 }
 
 // Busca
-template <typename TreeEntry>
-bool ABB<TreeEntry>::search(TreeEntry x) {
+template <typename TreeEntry, typename Compare>
+bool ABB<TreeEntry, Compare>::search(TreeEntry x) {
 // pre: Nenhuma
 // pos: Retorna true se x esta na arvore;
 //      caso contrario, retorna false
   TreePointer t = root;
 
   while(t != NULL && t->entry != x) {
-    if(x < t->entry)
+    if(compare(x, t->entry))
       t = t->leftNode;
     else
       t = t->rightNode;

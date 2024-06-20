@@ -6,16 +6,16 @@
 using namespace std;
 
 // Construtor
-template <typename TreeEntry>
-AVL<TreeEntry>::AVL() {
+template <typename TreeEntry, typename Compare>
+AVL<TreeEntry, Compare>::AVL() {
 // pre: Nenhuma
 // pos: A AVL eh criada vazia (sem elementos)
   root = NULL;
 }
 
 // Finalizador
-template <typename TreeEntry>
-AVL<TreeEntry>::~AVL() {
+template <typename TreeEntry, typename Compare>
+AVL<TreeEntry, Compare>::~AVL() {
 // pre: Nenhuma
 // pos: A AVL eh finalizada deixando de ocupar
 //      espaco em memoria e seus nos deletados
@@ -23,8 +23,8 @@ AVL<TreeEntry>::~AVL() {
 }
 
 // Status
-template <typename TreeEntry>
-bool AVL<TreeEntry>::empty() {
+template <typename TreeEntry, typename Compare>
+bool AVL<TreeEntry, Compare>::empty() {
 // pre: Nenhuma
 // pos: Retorna true se a arvore esta vazia;
 //      false caso contrario
@@ -32,8 +32,8 @@ bool AVL<TreeEntry>::empty() {
 }
 
 // Verificar se a arvore esta cheia
-template <typename TreeEntry>
-bool AVL<TreeEntry>::full() {
+template <typename TreeEntry, typename Compare>
+bool AVL<TreeEntry, Compare>::full() {
 // pre: nenhuma
 // pos: retorna true se a arvore binária esta cheia;
 //      false caso contrario
@@ -41,15 +41,15 @@ bool AVL<TreeEntry>::full() {
 }
 
 // Imprimir a arvore
-template <typename TreeEntry>
-void AVL<TreeEntry>::print() {
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::print() {
 // pre: nenhuma
 // pos: imprime a arvore na ordem DRE
   print(root, 0);
 }
 
-template <typename TreeEntry>
-void AVL<TreeEntry>::print(TreePointer &t, int s) {
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::print(TreePointer &t, int s) {
   // pre: nenhuma
   // pos: imprime a arvore na ordem DRE
   if(t != NULL) {
@@ -63,8 +63,8 @@ void AVL<TreeEntry>::print(TreePointer &t, int s) {
 }
 
 // Clear
-template <typename TreeEntry>
-void AVL<TreeEntry>::clear() {
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::clear() {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao descartados
 //      e ela se torna uma arvore vazia
@@ -72,8 +72,8 @@ void AVL<TreeEntry>::clear() {
   root = NULL;
 }
 
-template <typename TreeEntry>
-void AVL<TreeEntry>::clear(TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::clear(TreePointer &t) {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao descartados
 //      e ela se torna uma arvore vazia
@@ -86,16 +86,16 @@ void AVL<TreeEntry>::clear(TreePointer &t) {
 
 // Percursos
 // Pré-Ordem
-template <typename TreeEntry>
-void AVL<TreeEntry>::preOrder() {
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::preOrder() {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso pre-ordem (RED)
   preOrder(root);
 }
 
-template <typename TreeEntry>
-void AVL<TreeEntry>::preOrder(TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::preOrder(TreePointer &t) {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso pre-ordem (RED)
@@ -107,16 +107,16 @@ void AVL<TreeEntry>::preOrder(TreePointer &t) {
 }
 
 // Em-Ordem
-template <typename TreeEntry>
-void AVL<TreeEntry>::inOrder() {
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::inOrder() {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso em-ordem (ERD)
   inOrder(root);
 }
 
-template <typename TreeEntry>
-void AVL<TreeEntry>::inOrder(TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::inOrder(TreePointer &t) {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso em-ordem (ERD)
@@ -128,16 +128,16 @@ void AVL<TreeEntry>::inOrder(TreePointer &t) {
 }
 
 // Pós-Ordem
-template <typename TreeEntry>
-void AVL<TreeEntry>::postOrder() {
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::postOrder() {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso pós-ordem (EDR)
   postOrder(root);
 }
 
-template <typename TreeEntry>
-void AVL<TreeEntry>::postOrder(TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::postOrder(TreePointer &t) {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso pós-ordem (EDR)
@@ -149,15 +149,15 @@ void AVL<TreeEntry>::postOrder(TreePointer &t) {
 }
 
 // Número de Nós
-template <typename TreeEntry>
-int AVL<TreeEntry>::nodes() {
+template <typename TreeEntry, typename Compare>
+int AVL<TreeEntry, Compare>::nodes() {
 // pre: Nenhuma
 // pos: Retorna o numero de nos na arvore
   return nodes(root);
 }
 
-template <typename TreeEntry>
-int AVL<TreeEntry>::nodes(TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+int AVL<TreeEntry, Compare>::nodes(TreePointer &t) {
 // pre: Nenhuma
 // pos: Retorna o numero de nos na arvore
   if(t == NULL)
@@ -167,15 +167,15 @@ int AVL<TreeEntry>::nodes(TreePointer &t) {
 }
 
 // Numero de folhas
-template <typename TreeEntry>
-int AVL<TreeEntry>::leaves() {
+template <typename TreeEntry, typename Compare>
+int AVL<TreeEntry, Compare>::leaves() {
 // pre: Nenhuma
 // pos: Retorna o numero de folhas na arvore
   return leaves(root);
 }
 
-template <typename TreeEntry>
-int AVL<TreeEntry>::leaves(TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+int AVL<TreeEntry, Compare>::leaves(TreePointer &t) {
 // pre: Nenhuma
 // pos: Retorna o numero de folhas na arvore
   if(t == NULL)
@@ -188,15 +188,15 @@ int AVL<TreeEntry>::leaves(TreePointer &t) {
 }
 
 // Altura
-template <typename TreeEntry>
-int AVL<TreeEntry>::height() {
+template <typename TreeEntry, typename Compare>
+int AVL<TreeEntry, Compare>::height() {
 // pre: Nenhuma
 // pos: Retorna a altura da arvore
   return height(root);
 }
 
-template <typename TreeEntry>
-int AVL<TreeEntry>::height(TreePointer &t) {
+template <typename TreeEntry, typename Compare>
+int AVL<TreeEntry, Compare>::height(TreePointer &t) {
 // pre: Nenhuma
 // pos: Retorna a altura da arvore
   if(t == NULL)
@@ -209,16 +209,16 @@ int AVL<TreeEntry>::height(TreePointer &t) {
 }
 
 // Inserção
-template <typename TreeEntry>
-void AVL<TreeEntry>::insert(TreeEntry x) {
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::insert(TreeEntry x) {
 // pre: Nenhuma
 // pos: O elemento x eh inserido na arvore
   bool h = false;
   insert(x, root, h);
 }
 
-template <typename TreeEntry>
-void AVL<TreeEntry>::insert(TreeEntry x, TreePointer &pA, bool &h) {
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::insert(TreeEntry x, TreePointer &pA, bool &h) {
 // pre: Nenhuma
 // pos: O elemento x eh inserido na arvore
   TreePointer pB, pC;
@@ -230,7 +230,7 @@ void AVL<TreeEntry>::insert(TreeEntry x, TreePointer &pA, bool &h) {
     pA->leftNode = pA->rightNode = NULL;
     pA->bal = 0;
   } else {
-    if(x < pA->entry) {
+    if(compare(x, pA->entry)) {
       insert(x, pA->leftNode, h);
       if(h) {                                         // subarvore esquerda cresceu
         switch(pA->bal) {
@@ -287,8 +287,8 @@ void AVL<TreeEntry>::insert(TreeEntry x, TreePointer &pA, bool &h) {
 }
 
 // Remoção
-template <typename TreeEntry>
-bool AVL<TreeEntry>::remove(TreeEntry x) {
+template <typename TreeEntry, typename Compare>
+bool AVL<TreeEntry, Compare>::remove(TreeEntry x) {
 // pre: Nenhuma
 // pos: Retorna true se o elemento x foi encontrado
 //      e removido da arvore; false, caso contrario
@@ -296,8 +296,8 @@ bool AVL<TreeEntry>::remove(TreeEntry x) {
   return remove(x, root, h);
 }
 
-template <typename TreeEntry>
-bool AVL<TreeEntry>::remove(TreeEntry x, TreePointer &p, bool &h) {
+template <typename TreeEntry, typename Compare>
+bool AVL<TreeEntry, Compare>::remove(TreeEntry x, TreePointer &p, bool &h) {
 // pre: Nenhuma
 // pos: Retorna true se o elemento x foi encontrado
 //      e removido da arvore; false, caso contrario
@@ -307,13 +307,13 @@ bool AVL<TreeEntry>::remove(TreeEntry x, TreePointer &p, bool &h) {
   if(p == NULL)           // x não encontrado
     return false;
 
-  if(x < p->entry) { 
+  if(compare(x, p->entry)) { 
     removed = remove(x,p->leftNode,h);
     if(h)
       balanceL(p,h);
     return removed;
 
-  } else if(x > p->entry) { 
+  } else if(compare(p->entry, x)) { 
     removed = remove(x,p->rightNode,h);
     if(h)
       balanceR(p,h);
@@ -338,8 +338,8 @@ bool AVL<TreeEntry>::remove(TreeEntry x, TreePointer &p, bool &h) {
   }
 }
 
-template <typename TreeEntry>
-void AVL<TreeEntry>::removeMin(TreePointer &q, TreePointer &r, bool &h) {
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::removeMin(TreePointer &q, TreePointer &r, bool &h) {
   if(r->leftNode != NULL) {
     removeMin(q, r->leftNode, h);
     if(h)
@@ -352,8 +352,8 @@ void AVL<TreeEntry>::removeMin(TreePointer &q, TreePointer &r, bool &h) {
   }
 }
 
-template <typename TreeEntry>
-void AVL<TreeEntry>::balanceL(TreePointer &pA, bool &h) { 
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::balanceL(TreePointer &pA, bool &h) { 
   // subarvore esquerda encolheu
   TreePointer pB, pC;
   int balB, balC;
@@ -390,8 +390,8 @@ void AVL<TreeEntry>::balanceL(TreePointer &pA, bool &h) {
   }
 }
 
-template <typename TreeEntry>
-void AVL<TreeEntry>::balanceR(TreePointer &pA, bool &h) { 
+template <typename TreeEntry, typename Compare>
+void AVL<TreeEntry, Compare>::balanceR(TreePointer &pA, bool &h) { 
   // subarvore direita encolheu
   TreePointer pB, pC;
   int balB, balC;
@@ -429,15 +429,15 @@ void AVL<TreeEntry>::balanceR(TreePointer &pA, bool &h) {
 }
 
 // Busca
-template <typename TreeEntry>
-bool AVL<TreeEntry>::search(TreeEntry x) {
+template <typename TreeEntry, typename Compare>
+bool AVL<TreeEntry, Compare>::search(TreeEntry x) {
 // pre: Nenhuma
 // pos: Retorna true se x esta na arvore;
 //      caso contrario, retorna false
   TreePointer t = root;
 
   while(t != NULL && t->entry != x) {
-    if(x < t->entry)
+    if(compare(x, t->entry))
       t = t->leftNode;
     else
       t = t->rightNode;
