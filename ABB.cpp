@@ -1,6 +1,8 @@
 #include <iostream>
+#include <iomanip>
 #include <climits>
 #include "ABB.h"
+
 using namespace std;
 
 // Construtor
@@ -204,43 +206,6 @@ int ABB<TreeEntry>::height(TreePointer &t) {
   L = height(t->leftNode);
   R = height(t->rightNode);
   return (L>R) ? L+1 : R+1;
-}
-
-// Minimo e Maximo
-template <typename TreeEntry>
-TreeEntry ABB<TreeEntry>::min() {
-// pre: Arvore nao esta vazia
-// pos: Retorna NULL se a arvore esta vazia;
-//      caso contrario, retorna o valor minimo
-//      encontrado na arvore
-  if(empty()) {
-    cout << "Árvore vazia" << endl;
-    return NULL;
-  }
-
-  TreePointer t = root;
-  while(t->leftNode != NULL)
-    t = t->leftNode;
-
-  return t->entry;
-}
-
-template <typename TreeEntry>
-TreeEntry ABB<TreeEntry>::max() {
-// pre: Arvore nao esta vazia
-// pos: Retorna NULL se a arvore esta vazia;
-//      caso contrario, retorna o valor maximo
-//      encontrado na arvore
-  if(empty()) {
-    cout << "Árvore vazia" << endl;
-    return NULL;
-  }
-
-  TreePointer t = root;
-  while(t->rightNode != NULL)
-    t = t->rightNode;
-
-  return t->entry;
 }
 
 // Inserção

@@ -1,15 +1,15 @@
-// ABB.h
-// Declaração/interface para árvore binária de busca genérica
+// AVL.h
+// Declaração/interface para AVL genérica
 using namespace std;
 
-#ifndef ABB_H
-#define ABB_H
+#ifndef AVL_H
+#define AVL_H
 
 template <typename TreeEntry>
-class ABB {
+class AVL {
   public:
-    ABB();
-    ~ABB();
+    AVL();
+    ~AVL();
     bool empty();
     bool full();
     void print();
@@ -31,6 +31,7 @@ class ABB {
     struct TreeNode {
       TreeEntry entry;
       TreePointer leftNode, rightNode;
+      int bal;
     };
     TreePointer root;
 
@@ -42,8 +43,12 @@ class ABB {
     int nodes(TreePointer &t);
     int leaves(TreePointer &t);
     int height(TreePointer &t);
-    bool remove(TreeEntry x, TreePointer &t);
-    void removeMin(TreePointer &q, TreePointer &r);
+    void insert(TreeEntry x, TreePointer &pA, bool &h);
+    bool remove(TreeEntry x, TreePointer &p, bool &h);
+    void removeMin(TreePointer &q, TreePointer &r, bool &h);
+    void balanceL(TreePointer &pA, bool &h);
+    void balanceR(TreePointer &pA, bool &h);
+
 };
 
 #endif
