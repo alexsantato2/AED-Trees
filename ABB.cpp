@@ -210,12 +210,12 @@ int ABB<TreeEntry>::height(TreePointer &t) {
 template <typename TreeEntry>
 TreeEntry ABB<TreeEntry>::min() {
 // pre: Arvore nao esta vazia
-// pos: Retorna INT_MIN se a arvore esta vazia;
+// pos: Retorna NULL se a arvore esta vazia;
 //      caso contrario, retorna o valor minimo
 //      encontrado na arvore
   if(empty()) {
-    cout << "Arvore vazia" << endl;
-    return INT_MIN;
+    cout << "Árvore vazia" << endl;
+    return NULL;
   }
 
   TreePointer t = root;
@@ -228,12 +228,12 @@ TreeEntry ABB<TreeEntry>::min() {
 template <typename TreeEntry>
 TreeEntry ABB<TreeEntry>::max() {
 // pre: Arvore nao esta vazia
-// pos: Retorna INT_MAX se a arvore esta vazia;
+// pos: Retorna NULL se a arvore esta vazia;
 //      caso contrario, retorna o valor maximo
 //      encontrado na arvore
   if(empty()) {
-    cout << "Arvore vazia" << endl;
-    return INT_MAX;
+    cout << "Árvore vazia" << endl;
+    return NULL;
   }
 
   TreePointer t = root;
@@ -261,7 +261,7 @@ void ABB<TreeEntry>::insert(TreeEntry x) {
 
   r = new TreeNode;
   if(r == NULL) {
-    cout << "Sem memoria" << endl;
+    cout << "Sem memória" << endl;
     abort();
   }
 
