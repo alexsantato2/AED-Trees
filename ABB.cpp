@@ -1,11 +1,11 @@
 #include <iostream>
 #include <climits>
-#include "ABBTree.h"
+#include "ABB.h"
 using namespace std;
 
 // Construtor
 template <typename TreeEntry>
-ABBTree<TreeEntry>::ABBTree() {
+ABB<TreeEntry>::ABB() {
 // pre: Nenhuma
 // pos: A ABB eh criada vazia (sem elementos)
   root = NULL;
@@ -13,7 +13,7 @@ ABBTree<TreeEntry>::ABBTree() {
 
 // Finalizador
 template <typename TreeEntry>
-ABBTree<TreeEntry>::~ABBTree() {
+ABB<TreeEntry>::~ABB() {
 // pre: Nenhuma
 // pos: A ABB eh finalizada deixando de ocupar
 //      espaco em memoria e seus nos deletados
@@ -22,16 +22,47 @@ ABBTree<TreeEntry>::~ABBTree() {
 
 // Status
 template <typename TreeEntry>
-bool ABBTree<TreeEntry>::empty() {
+bool ABB<TreeEntry>::empty() {
 // pre: Nenhuma
 // pos: Retorna true se a arvore esta vazia;
 //      false caso contrario
   return (root == NULL);
 }
 
+// Verificar se a arvore esta cheia
+template <typename TreeEntry>
+bool ABB<TreeEntry>::full() {
+// pre: nenhuma
+// pos: retorna true se a arvore binária esta cheia;
+//      false caso contrario
+  return false;
+}
+
+// Imprimir a arvore
+template <typename TreeEntry>
+void ABB<TreeEntry>::print() {
+// pre: nenhuma
+// pos: imprime a arvore na ordem DRE
+  print(root, 0);
+}
+
+template <typename TreeEntry>
+void ABB<TreeEntry>::print(TreePointer &t, int s) {
+  // pre: nenhuma
+  // pos: imprime a arvore na ordem DRE
+  if(t != NULL) {
+    print(t->rightNode, s+3);
+    for(int i = 1; i < s; i++) {
+      cout << " ";
+    }
+    cout << setw(6) << t->entry << endl;
+    print(t->leftNode, s+3);
+  }
+}
+
 // Clear
 template <typename TreeEntry>
-void ABBTree<TreeEntry>::clear() {
+void ABB<TreeEntry>::clear() {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao descartados
 //      e ela se torna uma arvore vazia
@@ -40,7 +71,7 @@ void ABBTree<TreeEntry>::clear() {
 }
 
 template <typename TreeEntry>
-void ABBTree<TreeEntry>::clear(TreePointer &t) {
+void ABB<TreeEntry>::clear(TreePointer &t) {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao descartados
 //      e ela se torna uma arvore vazia
@@ -54,7 +85,7 @@ void ABBTree<TreeEntry>::clear(TreePointer &t) {
 // Percursos
 // Pré-Ordem
 template <typename TreeEntry>
-void ABBTree<TreeEntry>::preOrder() {
+void ABB<TreeEntry>::preOrder() {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso pre-ordem (RED)
@@ -62,7 +93,7 @@ void ABBTree<TreeEntry>::preOrder() {
 }
 
 template <typename TreeEntry>
-void ABBTree<TreeEntry>::preOrder(TreePointer &t) {
+void ABB<TreeEntry>::preOrder(TreePointer &t) {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso pre-ordem (RED)
@@ -75,7 +106,7 @@ void ABBTree<TreeEntry>::preOrder(TreePointer &t) {
 
 // Em-Ordem
 template <typename TreeEntry>
-void ABBTree<TreeEntry>::inOrder() {
+void ABB<TreeEntry>::inOrder() {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso em-ordem (ERD)
@@ -83,7 +114,7 @@ void ABBTree<TreeEntry>::inOrder() {
 }
 
 template <typename TreeEntry>
-void ABBTree<TreeEntry>::inOrder(TreePointer &t) {
+void ABB<TreeEntry>::inOrder(TreePointer &t) {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso em-ordem (ERD)
@@ -96,35 +127,35 @@ void ABBTree<TreeEntry>::inOrder(TreePointer &t) {
 
 // Pós-Ordem
 template <typename TreeEntry>
-void ABBTree<TreeEntry>::postOrder() {
+void ABB<TreeEntry>::postOrder() {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso pós-ordem (EDR)
-  inOrder(root);
+  postOrder(root);
 }
 
 template <typename TreeEntry>
-void ABBTree<TreeEntry>::postOrder(TreePointer &t) {
+void ABB<TreeEntry>::postOrder(TreePointer &t) {
 // pre: Nenhuma
 // pos: Todos os itens da arvore sao percorridos
 //      pelo percurso pós-ordem (EDR)
   if(t != NULL) {
-    cout << t->entry << " ";
     postOrder(t->leftNode);
     postOrder(t->rightNode);
+    cout << t->entry << " ";
   }
 }
 
 // Número de Nós
 template <typename TreeEntry>
-int ABBTree<TreeEntry>::nodes() {
+int ABB<TreeEntry>::nodes() {
 // pre: Nenhuma
 // pos: Retorna o numero de nos na arvore
   return nodes(root);
 }
 
 template <typename TreeEntry>
-int ABBTree<TreeEntry>::nodes(TreePointer &t) {
+int ABB<TreeEntry>::nodes(TreePointer &t) {
 // pre: Nenhuma
 // pos: Retorna o numero de nos na arvore
   if(t == NULL)
@@ -135,14 +166,14 @@ int ABBTree<TreeEntry>::nodes(TreePointer &t) {
 
 // Numero de folhas
 template <typename TreeEntry>
-int ABBTree<TreeEntry>::leaves() {
+int ABB<TreeEntry>::leaves() {
 // pre: Nenhuma
 // pos: Retorna o numero de folhas na arvore
   return leaves(root);
 }
 
 template <typename TreeEntry>
-int ABBTree<TreeEntry>::leaves(TreePointer &t) {
+int ABB<TreeEntry>::leaves(TreePointer &t) {
 // pre: Nenhuma
 // pos: Retorna o numero de folhas na arvore
   if(t == NULL)
@@ -156,14 +187,14 @@ int ABBTree<TreeEntry>::leaves(TreePointer &t) {
 
 // Altura
 template <typename TreeEntry>
-int ABBTree<TreeEntry>::height() {
+int ABB<TreeEntry>::height() {
 // pre: Nenhuma
 // pos: Retorna a altura da arvore
   return height(root);
 }
 
 template <typename TreeEntry>
-int ABBTree<TreeEntry>::height(TreePointer &t) {
+int ABB<TreeEntry>::height(TreePointer &t) {
 // pre: Nenhuma
 // pos: Retorna a altura da arvore
   if(t == NULL)
@@ -177,7 +208,7 @@ int ABBTree<TreeEntry>::height(TreePointer &t) {
 
 // Minimo e Maximo
 template <typename TreeEntry>
-TreeEntry ABBTree<TreeEntry>::min() {
+TreeEntry ABB<TreeEntry>::min() {
 // pre: Arvore nao esta vazia
 // pos: Retorna INT_MIN se a arvore esta vazia;
 //      caso contrario, retorna o valor minimo
@@ -195,7 +226,7 @@ TreeEntry ABBTree<TreeEntry>::min() {
 }
 
 template <typename TreeEntry>
-TreeEntry ABBTree<TreeEntry>::max() {
+TreeEntry ABB<TreeEntry>::max() {
 // pre: Arvore nao esta vazia
 // pos: Retorna INT_MAX se a arvore esta vazia;
 //      caso contrario, retorna o valor maximo
@@ -214,7 +245,7 @@ TreeEntry ABBTree<TreeEntry>::max() {
 
 // Inserção
 template <typename TreeEntry>
-void ABBTree<TreeEntry>::insert(TreeEntry x) {
+void ABB<TreeEntry>::insert(TreeEntry x) {
 // pre: Nenhuma
 // pos: O elemento x eh inserido na arvore
   TreePointer p = NULL, q = root, r;
@@ -249,7 +280,7 @@ void ABBTree<TreeEntry>::insert(TreeEntry x) {
 
 // Remoção
 template <typename TreeEntry>
-bool ABBTree<TreeEntry>::remove(TreeEntry x) {
+bool ABB<TreeEntry>::remove(TreeEntry x) {
 // pre: Nenhuma
 // pos: Retorna true se o elemento x foi encontrado
 //      e removido da arvore; false, caso contrario
@@ -257,7 +288,7 @@ bool ABBTree<TreeEntry>::remove(TreeEntry x) {
 }
 
 template <typename TreeEntry>
-bool ABBTree<TreeEntry>::remove(TreeEntry x, TreePointer &t) {
+bool ABB<TreeEntry>::remove(TreeEntry x, TreePointer &t) {
 // pre: Nenhuma
 // pos: Retorna true se o elemento x foi encontrado
 //      e removido da arvore; false, caso contrario
@@ -287,7 +318,7 @@ bool ABBTree<TreeEntry>::remove(TreeEntry x, TreePointer &t) {
 }
 
 template <typename TreeEntry>
-void ABBTree<TreeEntry>::removeMin(TreePointer &q, TreePointer &r) {
+void ABB<TreeEntry>::removeMin(TreePointer &q, TreePointer &r) {
   if(r->leftNode != NULL)
     removeMin(q, r->leftNode);
   else {
@@ -299,7 +330,7 @@ void ABBTree<TreeEntry>::removeMin(TreePointer &q, TreePointer &r) {
 
 // Busca
 template <typename TreeEntry>
-bool ABBTree<TreeEntry>::search(TreeEntry x) {
+bool ABB<TreeEntry>::search(TreeEntry x) {
 // pre: Nenhuma
 // pos: Retorna true se x esta na arvore;
 //      caso contrario, retorna false

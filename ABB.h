@@ -1,16 +1,18 @@
-// ABBTree.h
+// ABB.h
 // Declaração/interface para árvore binária de busca genérica
 using namespace std;
 
-#ifndef ABBTREE_H
-#define ABBTREE_H
+#ifndef ABB_H
+#define ABB_H
 
 template <typename TreeEntry>
-class ABBTree {
+class ABB {
   public:
-    ABBTree();
-    ~ABBTree();
+    ABB();
+    ~ABB();
     bool empty();
+    bool full();
+    void print();
     void clear();
     void preOrder();
     void inOrder();
@@ -34,6 +36,7 @@ class ABBTree {
     };
     TreePointer root;
 
+    void print(TreePointer &t, int s);
     void clear(TreePointer &t);
     void preOrder(TreePointer &t);
     void inOrder(TreePointer &t);
