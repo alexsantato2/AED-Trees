@@ -328,7 +328,7 @@ bool ABB<TreeEntry, Compare>::remove(TreeEntry &x, TreePointer &t) {
         t = q->leftNode;  // Caso B
       else
         removeMin(q, q->rightNode); // Caso C (C.1)
-        
+
     x->entry = q->entry;
     delete q;
     return true;
@@ -361,7 +361,11 @@ bool ABB<TreeEntry, Compare>::search(TreeEntry x) {
       t = t->rightNode;
   }
 
-  return (t != NULL);
+  if(t != NULL) {
+    cout << t->entry;
+    return true;
+  }
+  return false;
 }
 
 // Numero de comparacoes nas insercoes da ABB

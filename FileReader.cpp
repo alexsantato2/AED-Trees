@@ -5,7 +5,7 @@
 #include "FileReader.h"
 
 std::ostream& operator<<(std::ostream& os, const User& user) {
-    os << "ID: " << user.id << std::endl << ", Name: " << user.name << std::endl << "Birthday: " << std::put_time(&user.birthday, "%Y-%m-%d");
+    os << "ID: " << user.id << std::endl << ", Nome: " << user.name << std::endl << "Data de Nascimento: " << std::put_time(&user.birthday, "%Y-%m-%d");
     return os;
 }
 

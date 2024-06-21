@@ -507,7 +507,11 @@ bool AVL<TreeEntry, Compare>::search(TreeEntry x) {
       t = t->rightNode;
   }
 
-  return (t != NULL);
+  if(t != NULL) {
+    cout << t->entry;
+    return true;
+  }
+  return false;
 }
 
 // Numero de rotacoes nas insercoes da AVL
