@@ -87,17 +87,16 @@ User getNewUser() {
   return user;
 }
 
-void searchById(AVL<User, CompareById> avl, ABB<User, CompareById> abb) {
+void searchById(AVL<User, CompareById> &avl, ABB<User, CompareById> &abb) {
   User user;
-  // cout << "Digite o ID: ";
-  // cin >> user.id;
-  user.id = 1;
+  cout << "Digite o ID: ";
+  cin >> user.id;
 
   cout << boolalpha << "Encontrado AVL: " << avl.search(user) << endl;
   cout << boolalpha << "Encontrado ABB: " << abb.search(user) << endl;
 }
 
-void searchByName(AVL<User, CompareByName> avl, ABB<User, CompareByName> abb) {
+void searchByName(AVL<User, CompareByName> &avl, ABB<User, CompareByName> &abb) {
   User user;
   cout << "Digite o nome (case sensitive): ";
   clearInputBuffer();
@@ -107,7 +106,7 @@ void searchByName(AVL<User, CompareByName> avl, ABB<User, CompareByName> abb) {
   cout << boolalpha << "Encontrado ABB: " << abb.search(user) << endl;
 }
 
-void searchByBirthday(AVL<User, CompareByBirthday> avl, ABB<User, CompareByBirthday> abb) {
+void searchByBirthday(AVL<User, CompareByBirthday> &avl, ABB<User, CompareByBirthday> &abb) {
   string birthday;
   cout << "Digite a data de nascimento (AAAA-MM-DD): ";
   clearInputBuffer();
@@ -143,12 +142,6 @@ int main() {
     ABBByName.insert(user);
     ABBByBirthday.insert(user);
   }
-
-  AVLById.print();
-  searchById(AVLById, ABBById);
-  AVLById.print();
-  searchById(AVLById, ABBById);
-  
 
   // Inicio do programa (menu)
   string opt;
