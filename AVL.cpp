@@ -331,7 +331,7 @@ void AVL<TreeEntry, Compare>::insert(TreeEntry x, TreePointer &pA, bool &h) {
                      pA->bal = 0;
                      pA = pB;
                    } else {                           // RL
-                     numberOfRotations;
+                     numberOfRotations++;
                      pC = pB->leftNode;
                      pB->leftNode = pC->rightNode;
                      pC->rightNode = pB;
