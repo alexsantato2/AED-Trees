@@ -1,10 +1,24 @@
-#include "FileReader.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include "FileReader.h"
 
-std::vector<User> readCSV(const std::string& filename) {
+std::ostream& operator<<(std::ostream& os, const User& user) {
+    os << "ID: " << user.id << std::endl << ", Name: " << user.name << std::endl << "Birthday: " << std::put_time(&user.birthday, "%Y-%m-%d");
+    return os;
+}
+
+// Função auxiliar para converter a data de string para std::tm
+std::tm stringToDate(const std::string& date) {
+    std::tm tm = {};
+    std::istringstream ss(date);
+    ss >> std::get_time(&tm, "%Y-%m-%d");
+    return tm;
+}
+
+// Função para ler o arquivo CSV e separar os dados em variáveis apropriadas
+std::vector<User> readCSV(const std::string &filename) {
     std::vector<User> users;
     std::ifstream file(filename);
     std::string line, word;
@@ -33,7 +47,7 @@ std::vector<User> readCSV(const std::string& filename) {
 
         // Ler e atribuir Data de Nascimento (data tm da lib <ctime>)
         std::getline(ss, word, ',');
-        user.birthday = word;
+        user.birthday = stringToDate(word);
 
         users.push_back(user);
     }
@@ -42,14 +56,11 @@ std::vector<User> readCSV(const std::string& filename) {
     file.close();
     return users;
 }
-
 std::vector<User> getUsers() {
     std::string filename = "users.csv";
 
     // Ler os dados do arquivo CSV e criar um vetor "users". Ao final do processamento, cada usuário estará em "users".
     std::vector<User> users = readCSV(filename);
-
-    // Aqui você pode adicionar a lógica para inserir os usuários nas árvores BST e AVL
 
     return users;
 }

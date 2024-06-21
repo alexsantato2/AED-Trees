@@ -1,9 +1,55 @@
 #include <iostream>
 #include <iomanip>
 #include <climits>
-#include "ABB.h"
 
 using namespace std;
+
+#ifndef ABB_CPP
+#define ABB_CPP
+
+template <typename TreeEntry, typename Compare = less<TreeEntry>>
+class ABB {
+  public:
+    ABB();
+    ~ABB();
+    bool empty();
+    bool full();
+    void print();
+    void clear();
+    void preOrder();
+    void inOrder();
+    void postOrder();
+    int nodes();
+    int leaves();
+    int height();
+    void insert(TreeEntry x);
+    bool remove(TreeEntry x);
+    bool search(TreeEntry x);
+
+  private:
+    struct TreeNode;
+    typedef TreeNode (* TreePointer);
+
+    struct TreeNode {
+      TreeEntry entry;
+      TreePointer leftNode, rightNode;
+    };
+    TreePointer root;
+    Compare compare;
+
+    void print(TreePointer &t, int s);
+    void clear(TreePointer &t);
+    void preOrder(TreePointer &t);
+    void inOrder(TreePointer &t);
+    void postOrder(TreePointer &t);
+    int nodes(TreePointer &t);
+    int leaves(TreePointer &t);
+    int height(TreePointer &t);
+    bool remove(TreeEntry x, TreePointer &t);
+    void removeMin(TreePointer &q, TreePointer &r);
+};
+
+#endif
 
 // Construtor
 template <typename TreeEntry, typename Compare>
