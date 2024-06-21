@@ -86,8 +86,8 @@ void searchById(AVL<User, CompareById> avl, ABB<User, CompareById> abb) {
   cout << "Digite o ID: ";
   cin >> user.id;
 
-  cout << boolalpha << "Encontrado AVL: " << avl.search(user);
-  cout << boolalpha << "Encontrado ABB: " << abb.search(user);
+  cout << boolalpha << "Encontrado AVL: " << avl.search(user) << endl;
+  cout << boolalpha << "Encontrado ABB: " << abb.search(user) << endl;
 }
 
 void searchByName(AVL<User, CompareByName> avl, ABB<User, CompareByName> abb) {
@@ -95,8 +95,8 @@ void searchByName(AVL<User, CompareByName> avl, ABB<User, CompareByName> abb) {
   cout << "Digite o nome (case sensitive): ";
   getline(cin, user.name);
 
-  cout << boolalpha << "Encontrado AVL: " << avl.search(user);
-  cout << boolalpha << "Encontrado ABB: " << abb.search(user);
+  cout << boolalpha << "Encontrado AVL: " << avl.search(user) << endl;
+  cout << boolalpha << "Encontrado ABB: " << abb.search(user) << endl;
 }
 
 void searchByBirthday(AVL<User, CompareByBirthday> avl, ABB<User, CompareByBirthday> abb) {
@@ -106,8 +106,8 @@ void searchByBirthday(AVL<User, CompareByBirthday> avl, ABB<User, CompareByBirth
 
   User user;
   user.birthday = stringToDate(birthday);
-  cout << boolalpha << "Encontrado AVL: " << avl.search(user);
-  cout << boolalpha << "Encontrado ABB: " << abb.search(user);
+  cout << boolalpha << "Encontrado AVL: " << avl.search(user) << endl;
+  cout << boolalpha << "Encontrado ABB: " << abb.search(user) << endl;
 }
 
 int main() {

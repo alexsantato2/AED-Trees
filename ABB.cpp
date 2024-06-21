@@ -287,12 +287,13 @@ void ABB<TreeEntry, Compare>::insert(TreeEntry x) {
 
   if(p == NULL)
     root = r;
-  else
+  else {
     numberOfComparisons++;
     if(compare(x, p->entry))
       p->leftNode = r;
     else
       p->rightNode = r;
+  }
 }
 
 // Remoção
