@@ -35,20 +35,21 @@ struct CompareByBirthday {
 };
 
 int main() {
+    // Pega os usuarios do csv
     vector<User> users = getUsers(); 
 
+    // Criacao das AVLs
     AVL<User, CompareById> AVLById;
     AVL<User, CompareByName> AVLByName;
     AVL<User, CompareByBirthday> AVLByBirthday;
 
+    // Criacao da ABBs
     ABB<User, CompareById> ABBById;
     ABB<User, CompareByName> ABBByName;
     ABB<User, CompareByBirthday> ABBByBirthday;
 
-    int count = 0;
+    // Insercao dos elementos users
     for (const auto& user : users) {
-        count++;
-        if(count == 15) break;
         AVLById.insert(user);
         AVLByName.insert(user);
         AVLByBirthday.insert(user);
@@ -57,6 +58,5 @@ int main() {
         ABBByBirthday.insert(user);
     }
 
-    AVLByBirthday.print();
     return 0;
 }

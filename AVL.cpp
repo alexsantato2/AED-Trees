@@ -277,7 +277,7 @@ void AVL<TreeEntry, Compare>::insert(TreeEntry x, TreePointer &pA, bool &h) {
   if(pA == NULL) {  // inserir
     pA = new TreeNode;
     h = true;
-    pA -> entry = x;
+    pA->entry = x;
     pA->leftNode = pA->rightNode = NULL;
     pA->bal = 0;
   } else {
@@ -289,7 +289,7 @@ void AVL<TreeEntry, Compare>::insert(TreeEntry x, TreePointer &pA, bool &h) {
           case  0: pA->bal = +1;           break;
           case +1: pB = pA->leftNode;
                    if(pB->bal == +1) {                // LL
-                     pA->leftNode = pB->leftNode;
+                     pA->leftNode = pB->rightNode;
                      pB->rightNode = pA;
                      pA->bal = 0;
                      pA = pB;
@@ -307,7 +307,7 @@ void AVL<TreeEntry, Compare>::insert(TreeEntry x, TreePointer &pA, bool &h) {
                    h = false;
         }
       }
-    } else {
+    } else {                                          // se nao for menor, add na subarvore direita
       insert(x, pA->rightNode, h);
       if(h) {                                         // subarvore direita cresceu
         switch(pA->bal) {
