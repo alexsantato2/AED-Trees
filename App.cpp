@@ -111,6 +111,7 @@ void searchByBirthday(AVL<User, CompareByBirthday> avl, ABB<User, CompareByBirth
 }
 
 int main() {
+
   // Pega os usuários do csv
   vector<User> users = getUsers(); 
 

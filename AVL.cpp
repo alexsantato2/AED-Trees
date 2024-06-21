@@ -396,7 +396,7 @@ bool AVL<TreeEntry, Compare>::remove(TreeEntry &x, TreePointer &p, bool &h) {
         balanceR(p,h);
     }
     
-    x->entry = q->entry;
+    x = q->entry;
     delete q;
     return true;            // x removido
   }
@@ -500,7 +500,7 @@ bool AVL<TreeEntry, Compare>::search(TreeEntry x) {
 //      caso contrario, retorna false
   TreePointer t = root;
 
-  while(t != NULL && t->entry != x) {
+  while(t != NULL && (compare(t->entry, x) || compare(x, t->entry))) {
     if(compare(x, t->entry))
       t = t->leftNode;
     else
