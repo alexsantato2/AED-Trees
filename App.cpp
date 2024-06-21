@@ -89,8 +89,9 @@ User getNewUser() {
 
 void searchById(AVL<User, CompareById> avl, ABB<User, CompareById> abb) {
   User user;
-  cout << "Digite o ID: ";
-  cin >> user.id;
+  // cout << "Digite o ID: ";
+  // cin >> user.id;
+  user.id = 1;
 
   cout << boolalpha << "Encontrado AVL: " << avl.search(user) << endl;
   cout << boolalpha << "Encontrado ABB: " << abb.search(user) << endl;
@@ -142,6 +143,12 @@ int main() {
     ABBByName.insert(user);
     ABBByBirthday.insert(user);
   }
+
+  AVLById.print();
+  searchById(AVLById, ABBById);
+  AVLById.print();
+  searchById(AVLById, ABBById);
+  
 
   // Inicio do programa (menu)
   string opt;
