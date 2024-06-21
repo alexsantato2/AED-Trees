@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <limits>
 #include "AVL.cpp"
 #include "ABB.cpp"
 #include "FileReader.h"
@@ -35,6 +36,10 @@ struct CompareByBirthday {
 };
 
 // Métodos auxiliares
+void clearInputBuffer() {
+  cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
 void menu() {
   cout << "--| Menu Principal |--" << endl;
   cout << "1. Buscar uma tupla" << endl;
@@ -71,6 +76,7 @@ User getNewUser() {
   cin >> user.id;
 
   cout << "Digite o nome (case sensitive): ";
+  clearInputBuffer();
   getline(cin, user.name);
 
   string dataNasc;
@@ -93,6 +99,7 @@ void searchById(AVL<User, CompareById> avl, ABB<User, CompareById> abb) {
 void searchByName(AVL<User, CompareByName> avl, ABB<User, CompareByName> abb) {
   User user;
   cout << "Digite o nome (case sensitive): ";
+  clearInputBuffer();
   getline(cin, user.name);
 
   cout << boolalpha << "Encontrado AVL: " << avl.search(user) << endl;
@@ -102,6 +109,7 @@ void searchByName(AVL<User, CompareByName> avl, ABB<User, CompareByName> abb) {
 void searchByBirthday(AVL<User, CompareByBirthday> avl, ABB<User, CompareByBirthday> abb) {
   string birthday;
   cout << "Digite a data de nascimento (AAAA-MM-DD): ";
+  clearInputBuffer();
   getline(cin, birthday);
 
   User user;
@@ -186,6 +194,7 @@ int main() {
       }
       else if(opt == "b") {
         cout << "Digite o nome (case sensitive): ";
+        clearInputBuffer();
         getline(cin, user.name);
 
         cout << boolalpha << "Removido da AVL (Nome): " << AVLByName.remove(user) << endl;
@@ -198,6 +207,7 @@ int main() {
       else if (opt == "c") {
         string dataNasc;
         cout << "Digite a data de nascimento (AAAA-MM-DD): ";
+        clearInputBuffer();
         getline(cin, dataNasc);
         user.birthday = stringToDate(dataNasc);
 
