@@ -161,9 +161,9 @@ int main() {
         else if(opt == "c")
           searchByBirthday(AVLByBirthday, ABBByBirthday);
         else if(opt == "q")
-          cout << "Voltando para o menu principal...";
+          cout << "Voltando para o menu principal..." << endl;
         else
-          cout << "Comando não reconhecido!";
+          cout << "Comando não reconhecido!" << endl;
       } while(opt != "q");
     }
     else if(opt == "2") {
