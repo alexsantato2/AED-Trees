@@ -23,8 +23,10 @@ class AVL {
     int leaves();
     int height();
     void insert(TreeEntry x);
-    bool remove(TreeEntry x);
+    bool remove(TreeEntry &x);
     bool search(TreeEntry x);
+    int rotations();
+    int comparisons();
 
   private:
     struct TreeNode;
@@ -47,10 +49,13 @@ class AVL {
     int leaves(TreePointer &t);
     int height(TreePointer &t);
     void insert(TreeEntry x, TreePointer &pA, bool &h);
-    bool remove(TreeEntry x, TreePointer &p, bool &h);
+    bool remove(TreeEntry &x, TreePointer &p, bool &h);
     void removeMin(TreePointer &q, TreePointer &r, bool &h);
     void balanceL(TreePointer &pA, bool &h);
     void balanceR(TreePointer &pA, bool &h);
+
+    int numberOfRotations;   // Rotacoes na insercao da AVL
+    int numberOfComparisons;   // Nro de comparacoes na insercao da AVL
 
 };
 
@@ -62,6 +67,8 @@ AVL<TreeEntry, Compare>::AVL() {
 // pre: Nenhuma
 // pos: A AVL eh criada vazia (sem elementos)
   root = NULL;
+  numberOfComparisons = 0;
+  numberOfRotations = 0;
 }
 
 // Finalizador
@@ -281,6 +288,7 @@ void AVL<TreeEntry, Compare>::insert(TreeEntry x, TreePointer &pA, bool &h) {
     pA->leftNode = pA->rightNode = NULL;
     pA->bal = 0;
   } else {
+    numberOfComparisons++;
     if(compare(x, pA->entry)) {
       insert(x, pA->leftNode, h);
       if(h) {                                         // subarvore esquerda cresceu
@@ -289,11 +297,13 @@ void AVL<TreeEntry, Compare>::insert(TreeEntry x, TreePointer &pA, bool &h) {
           case  0: pA->bal = +1;           break;
           case +1: pB = pA->leftNode;
                    if(pB->bal == +1) {                // LL
+                     numberOfRotations++;
                      pA->leftNode = pB->rightNode;
                      pB->rightNode = pA;
                      pA->bal = 0;
                      pA = pB;
                    } else {                           // LR
+                     numberOfRotations++;
                      pC = pB->rightNode;
                      pB->rightNode = pC->leftNode;
                      pC->leftNode = pB;
@@ -315,11 +325,13 @@ void AVL<TreeEntry, Compare>::insert(TreeEntry x, TreePointer &pA, bool &h) {
           case  0: pA->bal = -1;           break;
           case -1: pB = pA->rightNode;
                    if(pB->bal == -1) {                // RR
+                     numberOfRotations++;
                      pA->rightNode = pB->leftNode;
                      pB->leftNode = pA;
                      pA->bal = 0;
                      pA = pB;
                    } else {                           // RL
+                     numberOfRotations;
                      pC = pB->leftNode;
                      pB->leftNode = pC->rightNode;
                      pC->rightNode = pB;
@@ -339,7 +351,7 @@ void AVL<TreeEntry, Compare>::insert(TreeEntry x, TreePointer &pA, bool &h) {
 
 // Remoção
 template <typename TreeEntry, typename Compare>
-bool AVL<TreeEntry, Compare>::remove(TreeEntry x) {
+bool AVL<TreeEntry, Compare>::remove(TreeEntry &x) {
 // pre: Nenhuma
 // pos: Retorna true se o elemento x foi encontrado
 //      e removido da arvore; false, caso contrario
@@ -348,7 +360,7 @@ bool AVL<TreeEntry, Compare>::remove(TreeEntry x) {
 }
 
 template <typename TreeEntry, typename Compare>
-bool AVL<TreeEntry, Compare>::remove(TreeEntry x, TreePointer &p, bool &h) {
+bool AVL<TreeEntry, Compare>::remove(TreeEntry &x, TreePointer &p, bool &h) {
 // pre: Nenhuma
 // pos: Retorna true se o elemento x foi encontrado
 //      e removido da arvore; false, caso contrario
@@ -384,6 +396,7 @@ bool AVL<TreeEntry, Compare>::remove(TreeEntry x, TreePointer &p, bool &h) {
         balanceR(p,h);
     }
     
+    x->entry = q->entry;
     delete q;
     return true;            // x removido
   }
@@ -495,4 +508,20 @@ bool AVL<TreeEntry, Compare>::search(TreeEntry x) {
   }
 
   return (t != NULL);
+}
+
+// Numero de rotacoes nas insercoes da AVL
+template <typename TreeEntry, typename Compare>
+int AVL<TreeEntry, Compare>::rotations() {
+// pre: nenhuma
+// pos: retorna o numero de rotacoes nas insercoes da AVL
+  return numberOfRotations;
+}
+
+// Numero de comparacoes nas insercoes da AVL
+template <typename TreeEntry, typename Compare>
+int AVL<TreeEntry, Compare>::comparisons() {
+// pre: nenhuma
+// pos: retorna o numero de comparacoes nas insercoes da AVL
+  return numberOfComparisons;
 }

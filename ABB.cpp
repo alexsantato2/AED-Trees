@@ -23,8 +23,9 @@ class ABB {
     int leaves();
     int height();
     void insert(TreeEntry x);
-    bool remove(TreeEntry x);
+    bool remove(TreeEntry &x);
     bool search(TreeEntry x);
+    int comparisons();
 
   private:
     struct TreeNode;
@@ -45,8 +46,10 @@ class ABB {
     int nodes(TreePointer &t);
     int leaves(TreePointer &t);
     int height(TreePointer &t);
-    bool remove(TreeEntry x, TreePointer &t);
+    bool remove(TreeEntry &x, TreePointer &t);
     void removeMin(TreePointer &q, TreePointer &r);
+
+    int numberOfComparisons;   // Nro de comparacoes na insercao da ABB
 };
 
 #endif
@@ -57,6 +60,7 @@ ABB<TreeEntry, Compare>::ABB() {
 // pre: Nenhuma
 // pos: A ABB eh criada vazia (sem elementos)
   root = NULL;
+  numberOfComparisons = 0;
 }
 
 // Finalizador
@@ -264,6 +268,7 @@ void ABB<TreeEntry, Compare>::insert(TreeEntry x) {
   while(q != NULL) {
     p = q;
 
+    numberOfComparisons++;
     if(compare(x, q->entry))
       q = q->leftNode;
     else
@@ -283,6 +288,7 @@ void ABB<TreeEntry, Compare>::insert(TreeEntry x) {
   if(p == NULL)
     root = r;
   else
+    numberOfComparisons++;
     if(compare(x, p->entry))
       p->leftNode = r;
     else
@@ -291,7 +297,7 @@ void ABB<TreeEntry, Compare>::insert(TreeEntry x) {
 
 // Remoção
 template <typename TreeEntry, typename Compare>
-bool ABB<TreeEntry, Compare>::remove(TreeEntry x) {
+bool ABB<TreeEntry, Compare>::remove(TreeEntry &x) {
 // pre: Nenhuma
 // pos: Retorna true se o elemento x foi encontrado
 //      e removido da arvore; false, caso contrario
@@ -299,7 +305,7 @@ bool ABB<TreeEntry, Compare>::remove(TreeEntry x) {
 }
 
 template <typename TreeEntry, typename Compare>
-bool ABB<TreeEntry, Compare>::remove(TreeEntry x, TreePointer &t) {
+bool ABB<TreeEntry, Compare>::remove(TreeEntry &x, TreePointer &t) {
 // pre: Nenhuma
 // pos: Retorna true se o elemento x foi encontrado
 //      e removido da arvore; false, caso contrario
@@ -322,7 +328,8 @@ bool ABB<TreeEntry, Compare>::remove(TreeEntry x, TreePointer &t) {
         t = q->leftNode;  // Caso B
       else
         removeMin(q, q->rightNode); // Caso C (C.1)
-
+        
+    x->entry = q->entry;
     delete q;
     return true;
   }
@@ -355,4 +362,12 @@ bool ABB<TreeEntry, Compare>::search(TreeEntry x) {
   }
 
   return (t != NULL);
+}
+
+// Numero de comparacoes nas insercoes da ABB
+template <typename TreeEntry, typename Compare>
+int ABB<TreeEntry, Compare>::comparisons() {
+// pre: nenhuma
+// pos: retorna o numero de comparacoes nas insercoes da ABB
+  return numberOfComparisons;
 }
