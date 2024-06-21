@@ -53,70 +53,78 @@ void searchMenu() {
   cout << "> ";
 }
 
-User newUser() {
+void removeMenu() {
+  cout << "--| Menu de Remoção |--" << endl;
+  cout << "Deseja remover por:" << endl;
+  cout << "a. ID" << endl;
+  cout << "b. Nome" << endl;
+  cout << "c. Data de nascimento" << endl << endl;
+  cout << "> ";
+}
+
+User getNewUser() {
   User user;
 
-  cout << "| Adicionando usuario |" << endl;
+  cout << "| Adicionando usuário |" << endl;
   
   cout << "Digite o ID: ";
   cin >> user.id;
 
-  cout << "Digite o nome: ";
+  cout << "Digite o nome (case sensitive): ";
   getline(cin, user.name);
 
   string dataNasc;
-  cout << "Digite a data de nascimento: ";
+  cout << "Digite a data de nascimento (AAAA-MM-DD): ";
   cin >> dataNasc;
   user.birthday = stringToDate(dataNasc);
 
   return user;
 }
 
-void searchById(AVL avl, ABB abb) {
-  int id;
+void searchById(AVL<User, CompareById> avl, ABB<User, CompareById> abb) {
+  User user;
   cout << "Digite o ID: ";
-  cin >> id;
+  cin >> user.id;
 
-  User user = new User(id, "", stringToDate("1500-01-01"));
   cout << boolalpha << "Encontrado AVL: " << avl.search(user);
   cout << boolalpha << "Encontrado ABB: " << abb.search(user);
 }
 
-void searchByName(AVL avl, ABB abb) {
-  string name;
+void searchByName(AVL<User, CompareByName> avl, ABB<User, CompareByName> abb) {
+  User user;
   cout << "Digite o nome (case sensitive): ";
-  getline(cin, name);
+  getline(cin, user.name);
 
-  User user = new User(0, name, stringToDate("1500-01-01"));
   cout << boolalpha << "Encontrado AVL: " << avl.search(user);
   cout << boolalpha << "Encontrado ABB: " << abb.search(user);
 }
 
-void searchByBirthday(AVL avl, ABB abb) {
+void searchByBirthday(AVL<User, CompareByBirthday> avl, ABB<User, CompareByBirthday> abb) {
   string birthday;
-  cout << "Digite a data de nascimento (YYYY-MM-DD): ";
+  cout << "Digite a data de nascimento (AAAA-MM-DD): ";
   getline(cin, birthday);
 
-  User user = new User(0, "", stringToDate(birthday));
+  User user;
+  user.birthday = stringToDate(birthday);
   cout << boolalpha << "Encontrado AVL: " << avl.search(user);
   cout << boolalpha << "Encontrado ABB: " << abb.search(user);
 }
 
 int main() {
-  // Pega os usuarios do csv
+  // Pega os usuários do csv
   vector<User> users = getUsers(); 
 
-  // Criacao das AVLs
+  // Criação das AVLs
   AVL<User, CompareById> AVLById;
   AVL<User, CompareByName> AVLByName;
   AVL<User, CompareByBirthday> AVLByBirthday;
 
-  // Criacao da ABBs
+  // Criação da ABBs
   ABB<User, CompareById> ABBById;
   ABB<User, CompareByName> ABBByName;
   ABB<User, CompareByBirthday> ABBByBirthday;
 
-  // Insercao dos elementos users
+  // Inserção dos elementos users
   for (const auto& user : users) {
     AVLById.insert(user);
     AVLByName.insert(user);
@@ -126,65 +134,87 @@ int main() {
     ABBByBirthday.insert(user);
   }
 
+  // Inicio do programa (menu)
   string opt;
   do {
     menu();
     cin >> opt;
 
-    switch(opt) {
-      case "1":
-        do {
-          searchMenu();
-          cin >> opt;
+    if(opt == "1") {
+      do {
+        searchMenu();
+        cin >> opt;
 
-          switch(opt) {
-            case "a":
-              searchById(AVLById, ABBById);
-              break;
-
-            case "b":
-              searchByName(AVLById, ABBById);
-              break;
-
-            case "c":
-              searchByBirthday(AVLById, ABBById);
-              break;
-
-            case "q":
-              cout << "Voltando para o menu principal...";
-              break;
-
-            default:
-              cout << "Comando não reconhecido!";
-              break;
-          }
-        } while(opt != "q");
-        break;
-      
-      case "2":
-        User newUser = newUser();
-
-        AVLById.insert(newUser);
-        AVLByName.insert(newUser);
-        AVLByBirthday.insert(newUser);
-        ABBById.insert(newUser);
-        ABBByName.insert(newUser);
-        ABBByBirthday.insert(newUser);
-        break;
-      
-      case "3":
-        cout << "Remover" << endl;
-        break;
-      
-      case "0":
-        cout << "Encerrando..." << endl;
-        break;
-      
-      default:
-        cout << "Comando não reconhecido!" << endl;
-        break;
+        if(opt == "a")
+          searchById(AVLById, ABBById);
+        else if(opt == "b")
+          searchByName(AVLByName, ABBByName);
+        else if(opt == "c")
+          searchByBirthday(AVLByBirthday, ABBByBirthday);
+        else if(opt == "q")
+          cout << "Voltando para o menu principal...";
+        else
+          cout << "Comando não reconhecido!";
+      } while(opt != "q");
     }
-  } while(opt != 0);
+    else if(opt == "2") {
+      User newUser = getNewUser();
+
+      AVLById.insert(newUser);
+      AVLByName.insert(newUser);
+      AVLByBirthday.insert(newUser);
+      ABBById.insert(newUser);
+      ABBByName.insert(newUser);
+      ABBByBirthday.insert(newUser);
+    }
+    else if(opt == "3") {
+      removeMenu();
+      cin >> opt;
+
+      User user;
+      if(opt == "a") {
+        cout << "Digite o ID: ";
+        cin >> user.id;
+
+        cout << boolalpha << "Removido da AVL (ID): " << AVLById.remove(user) << endl;
+        cout << boolalpha << "Removido da ABB (ID): " << ABBById.remove(user) << endl;
+        cout << boolalpha << "Removido da AVL (Nome): " << AVLByName.remove(user) << endl;
+        cout << boolalpha << "Removido da ABB (Nome): " << ABBByName.remove(user) << endl;
+        cout << boolalpha << "Removido da AVL (Data Nascimento): " << AVLByBirthday.remove(user) << endl;
+        cout << boolalpha << "Removido da ABB (Data Nascimento): " << ABBByBirthday.remove(user) << endl;
+      }
+      else if(opt == "b") {
+        cout << "Digite o nome (case sensitive): ";
+        getline(cin, user.name);
+
+        cout << boolalpha << "Removido da AVL (Nome): " << AVLByName.remove(user) << endl;
+        cout << boolalpha << "Removido da ABB (Nome): " << ABBByName.remove(user) << endl;
+        cout << boolalpha << "Removido da AVL (ID): " << AVLById.remove(user) << endl;
+        cout << boolalpha << "Removido da ABB (ID): " << ABBById.remove(user) << endl;
+        cout << boolalpha << "Removido da AVL (Data Nascimento): " << AVLByBirthday.remove(user) << endl;
+        cout << boolalpha << "Removido da ABB (Data Nascimento): " << ABBByBirthday.remove(user) << endl;
+      }
+      else if (opt == "c") {
+        string dataNasc;
+        cout << "Digite a data de nascimento (AAAA-MM-DD): ";
+        getline(cin, dataNasc);
+        user.birthday = stringToDate(dataNasc);
+
+        cout << boolalpha << "Removido da AVL (Data Nascimento): " << AVLByBirthday.remove(user) << endl;
+        cout << boolalpha << "Removido da ABB (Data Nascimento): " << ABBByBirthday.remove(user) << endl;
+        cout << boolalpha << "Removido da AVL (ID): " << AVLById.remove(user) << endl;
+        cout << boolalpha << "Removido da ABB (ID): " << ABBById.remove(user) << endl;
+        cout << boolalpha << "Removido da AVL (Nome): " << AVLByName.remove(user) << endl;
+        cout << boolalpha << "Removido da ABB (Nome): " << ABBByName.remove(user) << endl;
+      }
+    }
+    else if(opt == "0") {
+      cout << "Encerrando..." << endl;
+    }
+    else {
+      cout << "Comando não reconhecido!" << endl;
+    }
+  } while(opt != "0");
 
   return 0;
 }
