@@ -362,7 +362,7 @@ bool ABB<TreeEntry, Compare>::search(TreeEntry x) {
   }
 
   if(t != NULL) {
-    //cout << t->entry;
+    cout << t->entry;
     return true;
   }
   return false;
