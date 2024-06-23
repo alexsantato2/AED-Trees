@@ -384,6 +384,7 @@ bool AVL<TreeEntry, Compare>::remove(TreeEntry &x, TreePointer &p, bool &h) {
 
   } else {                // remover p->
     q = p;
+    x = q->entry;
     if(q->rightNode == NULL) { 
       p = q->leftNode;
       h = true;
@@ -396,7 +397,6 @@ bool AVL<TreeEntry, Compare>::remove(TreeEntry &x, TreePointer &p, bool &h) {
         balanceR(p,h);
     }
     
-    x = q->entry;
     delete q;
     return true;            // x removido
   }

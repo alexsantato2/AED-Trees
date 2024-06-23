@@ -321,6 +321,7 @@ bool ABB<TreeEntry, Compare>::remove(TreeEntry &x, TreePointer &t) {
   else {
     TreePointer q;
     q = t;
+    x = q->entry;
 
     if(q->leftNode == NULL)
       t = q->rightNode;   // Caso A
@@ -330,7 +331,6 @@ bool ABB<TreeEntry, Compare>::remove(TreeEntry &x, TreePointer &t) {
       else
         removeMin(q, q->rightNode); // Caso C (C.1)
 
-    x = q->entry;
     delete q;
     return true;
   }
