@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <limits>
+#include <cmath>
 #include "AVL.cpp"
 #include "ABB.cpp"
 #include "FileReader.h"
@@ -44,7 +45,8 @@ void menu() {
   cout << "--| Menu Principal |--" << endl;
   cout << "1. Buscar uma tupla" << endl;
   cout << "2. Adicionar uma nova tupla" << endl;
-  cout << "3. Remover uma tupla" << endl << endl;
+  cout << "3. Remover uma tupla" << endl;
+  cout << "4. Extrair métricas" << endl << endl;
   cout << "0. Encerrar programa" << endl << endl;
   cout << "> ";
 }
@@ -218,6 +220,62 @@ int main() {
         cout << boolalpha << "Removido da AVL (Nome): " << AVLByName.remove(user) << endl;
         cout << boolalpha << "Removido da ABB (Nome): " << ABBByName.remove(user) << endl;
       }
+    }
+    else if(opt == "4") {
+      cout << "--| Métricas |--" << endl;
+
+      int numUsers = users.size();
+      cout << "A) Num. de usuários" << endl;
+      cout << "  AVL (ID): " << numUsers << endl;
+      cout << "  ABB (ID): " << numUsers << endl;
+      cout << "  AVL (Nome): " << numUsers << endl;
+      cout << "  ABB (Nome): " << numUsers << endl;
+      cout << "  AVL (Data Nascimento): " << numUsers << endl;
+      cout << "  ABB (Data Nascimento): " << numUsers << endl << endl;
+
+      int hMinArvore = ceil(log2(numUsers + 1) - 1);
+      cout << "B) Tamanho da árvore mínima" << endl;
+      cout << "  AVL (ID): " << hMinArvore << endl;
+      cout << "  ABB (ID): " << hMinArvore << endl;
+      cout << "  AVL (Nome): " << hMinArvore << endl;
+      cout << "  ABB (Nome): " << hMinArvore << endl;
+      cout << "  AVL (Data Nascimento): " << hMinArvore << endl;
+      cout << "  ABB (Data Nascimento): " << hMinArvore << endl << endl;
+
+      cout << "C) Tamanho da AVL" << endl;
+      cout << "  AVL (ID): " << AVLById.height() << endl;
+      cout << "  AVL (Nome): " << AVLByName.height() << endl;
+      cout << "  AVL (Data Nascimento): " << AVLByBirthday.height() << endl << endl;
+
+      cout << "D) Folhas na AVL" << endl;
+      cout << "  AVL (ID): " << AVLById.leaves() << endl;
+      cout << "  AVL (Nome): " << AVLByName.leaves() << endl;
+      cout << "  AVL (Data Nascimento): " << AVLByBirthday.leaves() << endl << endl;
+
+      cout << "E) Tamanho da ABB" << endl;
+      cout << "  ABB (ID): " << ABBById.height() << endl;
+      cout << "  ABB (Nome): " << ABBByName.height() << endl;
+      cout << "  ABB (Data Nascimento): " << ABBByBirthday.height() << endl << endl;
+
+      cout << "F) Folhas na ABB" << endl;
+      cout << "  ABB (ID): " << ABBById.leaves() << endl;
+      cout << "  ABB (Nome): " << ABBByName.leaves() << endl;
+      cout << "  ABB (Data Nascimento): " << ABBByBirthday.leaves() << endl << endl;
+
+      cout << "G) Rotações na inserção da AVL" << endl;
+      cout << "  AVL (ID): " << AVLById.rotations() << endl;
+      cout << "  AVL (Nome): " << AVLByName.rotations() << endl;
+      cout << "  AVL (Data Nascimento): " << AVLByBirthday.rotations() << endl << endl;
+
+      cout << "H) Comparações na inserção ABB" << endl;
+      cout << "  ABB (ID): " << ABBById.comparisons() << endl;
+      cout << "  ABB (Nome): " << ABBByName.comparisons() << endl;
+      cout << "  ABB (Data Nascimento): " << ABBByBirthday.comparisons() << endl << endl;
+
+      cout << "I) Comparações na inserção AVL" << endl;
+      cout << "  AVL (ID): " << AVLById.comparisons() << endl;
+      cout << "  AVL (Nome): " << AVLByName.comparisons() << endl;
+      cout << "  AVL (Data Nascimento): " << AVLByBirthday.comparisons() << endl << endl;
     }
     else if(opt == "0") {
       cout << "Encerrando..." << endl;
