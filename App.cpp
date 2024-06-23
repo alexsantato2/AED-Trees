@@ -224,7 +224,7 @@ int main() {
     else if(opt == "4") {
       cout << "--| Métricas |--" << endl;
 
-      int numUsers = users.size();
+      int numUsers = AVLById.nodes();
       cout << "A) Num. de usuários" << endl;
       cout << "  AVL (ID): " << numUsers << endl;
       cout << "  ABB (ID): " << numUsers << endl;
