@@ -1,3 +1,8 @@
+// Trabalho 2 - Trees
+// AED1 - Prof. José Augusto Baranauskas
+// Alexandre Santato    | 14555162
+// Leonardo Rizzo Costa | 14756204
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -151,6 +156,7 @@ int main() {
     menu();
     cin >> opt;
 
+    // Opção de busca
     if(opt == "1") {
       do {
         searchMenu();
@@ -168,8 +174,25 @@ int main() {
           cout << "Comando não reconhecido!" << endl;
       } while(opt != "q");
     }
-    else if(opt == "2") {
-      User newUser = getNewUser();
+    else if(opt == "2") {          // Opção de adição de usuário
+      User newUser;
+      bool flag;
+
+      do {
+        newUser = getNewUser();
+        flag = false;
+        if(AVLById.search(newUser)) {
+          cout << "Já existe usuário com este id." << endl << "Digite um novo usuário: " << endl;
+          flag = true;
+        } else if(AVLByName.search(newUser)) {
+          cout << "Já existe usuário com este nome." << endl << "Digite um novo usuário: " << endl;
+          flag = true;
+        } else if(AVLByBirthday.search(newUser)) {
+          cout << "Já existe usuário com esta data de nascimento." << endl << "Digite um novo usuário: " << endl;
+          flag = true;
+        }
+      } while(flag);        // Verifica se existe algum usuário com dados repetidos
+      
 
       AVLById.insert(newUser);
       AVLByName.insert(newUser);
@@ -178,7 +201,7 @@ int main() {
       ABBByName.insert(newUser);
       ABBByBirthday.insert(newUser);
     }
-    else if(opt == "3") {
+    else if(opt == "3") {              // Remoção de usuário
       removeMenu();
       cin >> opt;
 
@@ -221,7 +244,7 @@ int main() {
         cout << boolalpha << "Removido da ABB (Nome): " << ABBByName.remove(user) << endl;
       }
     }
-    else if(opt == "4") {
+    else if(opt == "4") {                // Extração de métricas
       cout << "--| Métricas |--" << endl;
 
       int numUsers = AVLById.nodes();

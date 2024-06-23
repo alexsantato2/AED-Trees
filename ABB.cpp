@@ -1,3 +1,8 @@
+// Trabalho 2 - Trees
+// AED1 - Prof. José Augusto Baranauskas
+// Alexandre Santato    | 14555162
+// Leonardo Rizzo Costa | 14756204
+
 #include <iostream>
 #include <iomanip>
 #include <climits>
